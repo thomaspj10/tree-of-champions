@@ -1,4 +1,4 @@
-import { mergeWith } from "lodash";
+import { mapValues, mergeWith } from "lodash";
 
 export function formatNumber(n: number, minimumFractionDigits: number, maximumFractionDigits: number): string {
   if (isNaN(n)) return '';
