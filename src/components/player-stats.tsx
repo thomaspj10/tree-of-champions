@@ -5,17 +5,17 @@ import useStore from "../store";
 
 export default function PlayerStats() {
   const player = useStore(s => pick(s.player, [
-    'stats'
+    'fighter'
   ]), shallow);
 
   return <Container>
     <h2>Player Stats</h2>
 
     <Stats>
-    {Object.entries(player.stats).map(([s, val]) => 
+    {Object.entries(player.fighter.baseStats).map(([s, val]) => 
       <>
-        <span>{s}</span>
-        <span>{val}</span>
+        <span key={s}>{s}</span>
+        <span key={s + "-val"}>{val}</span>
       </>
     )}
     </Stats>

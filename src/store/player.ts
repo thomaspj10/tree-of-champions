@@ -1,8 +1,8 @@
-import { getEmptyStats, MyCreateSlice, Stat, Stats } from "../shared/types";
+import { Fighter, getEmptyStats, MyCreateSlice, Stat, Stats } from "../shared/types";
 import { mergeSumPartial } from "../shared/utils";
 
 export interface PlayerSlice {
-  stats: Stats,
+  fighter: Fighter,
 }
 
 const startingStats: Partial<Stats> = {
@@ -13,7 +13,12 @@ const startingStats: Partial<Stats> = {
 
 const createPlayerSlice: MyCreateSlice<PlayerSlice, []> = (set, get) => {
   return {
-    stats: mergeSumPartial(getEmptyStats(), startingStats),
+    fighter: {
+      name: "Player",
+      baseStats: mergeSumPartial(getEmptyStats(), startingStats),
+      health: startingStats.health!,
+      attackCooldown: 0,
+    }
   };
 };
 

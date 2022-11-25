@@ -18,6 +18,20 @@ export function getEmptyStats(): Stats {
   };
 }
 
+export interface Champion {
+  id: string,
+  name: string,
+  stats: Partial<Stats>,
+  earnedStats: Partial<Stats>,
+}
+
+export interface Fighter {
+  name: string,
+  baseStats: Partial<Stats>,
+  health: number,
+  attackCooldown: number,
+}
+
 export type Lens<T> = [set: StoreApi<T>['setState'], get: StoreApi<T>['getState']];
 
 export type MyCreateSlice<T, A extends (() => any)[]> =
