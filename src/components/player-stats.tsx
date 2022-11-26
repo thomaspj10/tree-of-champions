@@ -2,6 +2,7 @@ import { pick } from "lodash";
 import { Fragment } from "react";
 import styled from "styled-components";
 import shallow from "zustand/shallow";
+import { autoFormatNumber } from "../shared/utils";
 import useStore from "../store";
 
 export default function PlayerStats() {
@@ -16,7 +17,7 @@ export default function PlayerStats() {
     {Object.entries(player.fighter.baseStats).map(([s, val]) => 
       <Fragment key={s}>
         <span>{s}</span>
-        <span>{val}</span>
+        <span>{autoFormatNumber(val)}</span>
       </Fragment>
     )}
     </Stats>

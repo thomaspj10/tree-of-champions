@@ -4,6 +4,7 @@ import shallow from "zustand/shallow";
 import { ProgressCircle } from "../shared/components/circle-progress-bar";
 import { ProgressBar } from "../shared/components/progress-bar";
 import { Fighter } from "../shared/types";
+import { autoFormatNumber, formatNumber } from "../shared/utils";
 import useStore from "../store";
 
 export default function Fight() {
@@ -36,7 +37,7 @@ function FighterStats(props: {fighter: Fighter, align?: string}) {
       color="white"
       radius={20}
     />
-    <div>{props.fighter.health}/{props.fighter.baseStats.health}</div>
+    <div>{autoFormatNumber(props.fighter.health)}/{formatNumber(props.fighter.baseStats.health, 0, 0)}</div>
     <ProgressBar
       progress={props.fighter.health / (props.fighter.baseStats.health ?? 1)}
       hasBorder={true}

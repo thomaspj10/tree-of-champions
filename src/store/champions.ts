@@ -11,6 +11,7 @@ export interface ChampionsSlice {
   championRows: ChampionNode[][],
 
   championDefeated: (chosen: ChosenChampion) => void,
+  reset: () => void,
 }
 
 const rows = [
@@ -20,13 +21,7 @@ const rows = [
 
 const createChampionsSlice: MyCreateSlice<ChampionsSlice, []> = (set, get) => {
   return {
-    championRows: rows.map((row, r) => 
-      row.map((id, i) => ({
-        champion: champions[id],
-        completed: false,
-        locked: (r !== 0 || i !== 0),
-      }))
-    ),
+    championRows: getInitialRows(),
 
     championDefeated: (chosen) => {
       const newRows = [...get().championRows];
@@ -34,6 +29,11 @@ const createChampionsSlice: MyCreateSlice<ChampionsSlice, []> = (set, get) => {
       if (!newChampionNode) return;
 
       newChampionNode.completed = true;
+      newRows[chosen.row].forEach((node, i) => {
+        if (i === chosen.index) return;
+
+        node.locked = true;
+      })
       if (newRows.length > chosen.row + 1) {
         newRows[chosen.row + 1][chosen.index].locked = false;
         newRows[chosen.row + 1][chosen.index + 1].locked = false;
@@ -41,17 +41,21 @@ const createChampionsSlice: MyCreateSlice<ChampionsSlice, []> = (set, get) => {
 
       set({championRows: newRows});
     },
+
+    reset: () => {
+      set({championRows: getInitialRows()});
+    },
   };
 };
 
-const NOT_FOUND = "NOT_FOUND";
-function unlockNode(map: Record<string, ChampionNode>, row: number, index: number) {
-  const champId = rows?.[row]?.[index] ?? NOT_FOUND;
-  if (!map[champId]) {
-    return;
-  }
-
-  map[champId].locked = false;
+function getInitialRows() {
+  return rows.map((row, r) => 
+    row.map((id, i) => ({
+      champion: champions[id],
+      completed: false,
+      locked: (r !== 0 || i !== 0),
+    }))
+  );
 }
 
 export default createChampionsSlice;

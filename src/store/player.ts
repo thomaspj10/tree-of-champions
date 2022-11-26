@@ -13,7 +13,6 @@ const startingStats: Stats = {
   [Stat.Health]: 10,
   [Stat.Damage]: 2,
   [Stat.AttackSpeed]: 0.5,
-  [Stat.Armor]: 0.5,
 };
 
 const createPlayerSlice: MyCreateSlice<PlayerSlice, []> = (set, get) => {

@@ -49,6 +49,7 @@ const createFightingSlice: MyCreateSlice<FightingSlice, [() => PlayerSlice, () =
       updateFighter(elapsed, championFighter.fighter, player);
       if (player.health <= 0) {
         playerStore().lostFight();
+        championsStore().reset();
         set({player: null, championFighter: null});
         return;
       }

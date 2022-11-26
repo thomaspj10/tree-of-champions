@@ -4,10 +4,10 @@ export enum Stat {
   Health = "health",
   Damage = "damage",
   AttackSpeed = "attackSpeed",
-  Armor = "armor",
 }
 
 export enum OtherStat {
+  Armor = "armor",
   LifeSteal = "lifeSteal",
 }
 
@@ -22,14 +22,13 @@ export function getEmptyStats(): AllStats {
     [Stat.Health]: 0,
     [Stat.Damage]: 0,
     [Stat.AttackSpeed]: 0,
-    [Stat.Armor]: 0,
   };
 }
 
 export interface Champion {
   id: string,
   name: string,
-  stats: Stats,
+  stats: AllStats,
   earnedStats: EarnedStats,
 }
 
