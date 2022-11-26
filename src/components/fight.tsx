@@ -7,25 +7,20 @@ import { Fighter } from "../shared/types";
 import useStore from "../store";
 
 export default function Fight() {
-  const player = useStore(s => pick(s.player, [
-    'fighter',
-  ]), shallow);
-  const champions = useStore(s => pick(s.champions, [
-    'fightingChampion',
+  const fighting = useStore(s => pick(s.fighting, [
+    'player', 'championFighter',
   ]), shallow);
 
-  const champ = champions.fightingChampion;
-
-  if (!champ) {
+  if (!fighting.player || !fighting.championFighter) {
     return null;
   }
 
   return <Section>
-    <FighterStats fighter={player.fighter} />
+    <FighterStats fighter={fighting.player} />
     <VSContainer>
       <VSLabel>VS</VSLabel>
     </VSContainer>
-    <FighterStats fighter={champ} align="flex-end" />
+    <FighterStats fighter={fighting.championFighter} align="flex-end" />
   </Section>;
 }
 
