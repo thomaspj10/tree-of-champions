@@ -8,7 +8,12 @@ export enum Stat {
 
 export enum OtherStat {
   Armor = "armor",
+  DodgeChance = "dodgeChance",
   LifeSteal = "lifeSteal",
+  HealOnKill = "healOnKill",
+  CritChance = "critChance",
+  Poison = "poison",
+  StunChance = "stunChance",
 }
 
 export type Stats = Record<Stat, number>;

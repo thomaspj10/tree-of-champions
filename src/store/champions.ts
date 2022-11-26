@@ -15,8 +15,8 @@ export interface ChampionsSlice {
 }
 
 const rows = [
-  ['rat'],
-  ['bat', 'spider'],
+  ['rat', 'bat', 'spider'],
+  ['skeleton', 'flockOfBats', 'python', 'ogre'],
 ];
 
 const createChampionsSlice: MyCreateSlice<ChampionsSlice, []> = (set, get) => {
@@ -53,7 +53,7 @@ function getInitialRows() {
     row.map((id, i) => ({
       champion: champions[id],
       completed: false,
-      locked: (r !== 0 || i !== 0),
+      locked: (r !== 0),
     }))
   );
 }

@@ -40,6 +40,60 @@ const champions: Record<string, Champion> = {
       attackSpeed: 0.05,
     }
   },
+  'skeleton': {
+    id: '',
+    name: 'Skeleton',
+    stats: {
+      health: 20,
+      damage: 2,
+      attackSpeed: 0.75,
+      armor: 1,
+    },
+    earnedStats: {
+      armor: 0.25,
+    }
+  },
+  'flockOfBats': {
+    id: '',
+    name: 'Flock of Bats',
+    stats: {
+      health: 12,
+      damage: 1,
+      attackSpeed: 2,
+      armor: 0,
+    },
+    earnedStats: {
+      lifeSteal: 0.05,
+    }
+  },
+  'python': {
+    id: '',
+    name: 'Giant Python',
+    stats: {
+      health: 30,
+      damage: 1,
+      attackSpeed: 0.5,
+      armor: 0,
+      poison: 1,
+    },
+    earnedStats: {
+      poison: 0.1,
+    }
+  },
+  'ogre': {
+    id: '',
+    name: 'Ogre',
+    stats: {
+      health: 100,
+      damage: 5,
+      attackSpeed: 0.25,
+      armor: 1,
+      stunChance: 0.5,
+    },
+    earnedStats: {
+      stunChance: 0.1,
+    }
+  },
 };
 
 Object.keys(champions)

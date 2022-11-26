@@ -37,7 +37,7 @@ function FighterStats(props: {fighter: Fighter, align?: string}) {
       color="white"
       radius={20}
     />
-    <div>{autoFormatNumber(props.fighter.health)}/{formatNumber(props.fighter.baseStats.health, 0, 0)}</div>
+    <div>{autoFormatNumber(props.fighter.health)}/{autoFormatNumber(props.fighter.baseStats.health)}</div>
     <ProgressBar
       progress={props.fighter.health / (props.fighter.baseStats.health ?? 1)}
       hasBorder={true}
