@@ -15,7 +15,7 @@ Modal.setAppElement('#root');
 function Header() {
   return <>
     <header>
-      <h1>Algebra Idle</h1>
+      <h1>Tree of Champions</h1>
 
       <div className="options">
         <button className="no-style" data-tip="Help">

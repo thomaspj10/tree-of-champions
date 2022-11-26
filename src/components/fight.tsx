@@ -1,6 +1,8 @@
 import { pick } from "lodash";
 import styled from "styled-components";
 import shallow from "zustand/shallow";
+import { ProgressCircle } from "../shared/components/circle-progress-bar";
+import { ProgressBar } from "../shared/components/progress-bar";
 import { Fighter } from "../shared/types";
 import useStore from "../store";
 
@@ -31,9 +33,20 @@ export default function Fight() {
 function FighterStats(props: {fighter: Fighter, align?: string}) {
   return <FighterStatsStyled align={props.align ?? "flex-start"}>
     <h2>{props.fighter.name}</h2>
+
+    <ProgressCircle
+      progress={0.6}
+      hasBorder={false}
+      color="white"
+      radius={20}
+    />
     <div>{props.fighter.health}/{props.fighter.baseStats.health}</div>
-    <div>{props.fighter.health}/{props.fighter.baseStats.health}</div>
-    <div>{props.fighter.health}/{props.fighter.baseStats.health}</div>
+    <ProgressBar
+      progress={props.fighter.health / (props.fighter.baseStats.health ?? 1)}
+      hasBorder={true}
+      color={"red"}
+      height={20}
+    />
   </FighterStatsStyled>;
 }
 
