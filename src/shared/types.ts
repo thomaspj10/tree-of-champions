@@ -7,7 +7,12 @@ export enum Stat {
   Armor = "armor",
 }
 
-export type Stats = Record<Stat, number>;
+export interface Stats {
+  health: number,
+  damage: number,
+  attackSpeed: number,
+  armor: number,
+}
 
 export function getEmptyStats(): Stats {
   return {
@@ -21,13 +26,13 @@ export function getEmptyStats(): Stats {
 export interface Champion {
   id: string,
   name: string,
-  stats: Partial<Stats>,
+  stats: Stats,
   earnedStats: Partial<Stats>,
 }
 
 export interface Fighter {
   name: string,
-  baseStats: Partial<Stats>,
+  baseStats: Stats,
   health: number,
   attackCooldown: number,
 }

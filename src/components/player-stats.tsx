@@ -1,4 +1,5 @@
 import { pick } from "lodash";
+import { Fragment } from "react";
 import styled from "styled-components";
 import shallow from "zustand/shallow";
 import useStore from "../store";
@@ -13,10 +14,10 @@ export default function PlayerStats() {
 
     <Stats>
     {Object.entries(player.fighter.baseStats).map(([s, val]) => 
-      <>
-        <span key={s}>{s}</span>
-        <span key={s + "-val"}>{val}</span>
-      </>
+      <Fragment key={s}>
+        <span>{s}</span>
+        <span>{val}</span>
+      </Fragment>
     )}
     </Stats>
   </Container>;

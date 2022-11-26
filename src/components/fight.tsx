@@ -26,11 +26,12 @@ export default function Fight() {
 
 
 function FighterStats(props: {fighter: Fighter, align?: string}) {
+  const attackTime = 1 / props.fighter.baseStats.attackSpeed;
   return <FighterStatsStyled align={props.align ?? "flex-start"}>
     <h2>{props.fighter.name}</h2>
 
     <ProgressCircle
-      progress={0.6}
+      progress={props.fighter.attackCooldown / attackTime}
       hasBorder={false}
       color="white"
       radius={20}

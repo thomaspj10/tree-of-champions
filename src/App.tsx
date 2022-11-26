@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import ReactDOM from "react-dom";
 
 import Header from './components/header/header';
@@ -11,6 +11,8 @@ import useStore from './store';
 import PlayerStats from './components/player-stats';
 import styled from 'styled-components';
 import Fight from './components/fight';
+import { pick } from 'lodash';
+import shallow from 'zustand/shallow';
 
 function App() {
   return (
@@ -26,14 +28,26 @@ function App() {
 
 let lastTime: number = performance.now();
 function Content() {
+  const fighting = useStore(s => pick(s.fighting, [
+    'update'
+  ]), shallow);
 
+  const requestRef = useRef(0);
+  const previousTimeRef = useRef(0);
+  
+  const animate = (time: number) => {
+    if (previousTimeRef.current != undefined) {
+      const elapsed = (time - previousTimeRef.current) / 1000;
+
+      fighting.update(elapsed)
+    }
+    previousTimeRef.current = time;
+    requestRef.current = requestAnimationFrame(animate);
+  }
+  
   useEffect(() => {
-    const interval = setInterval(() => {
-      const elapsed = (performance.now() - lastTime) / 1000;
-      lastTime = performance.now();
-    }, 100);
-
-    return () => clearInterval(interval);
+    requestRef.current = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(requestRef.current);
   }, []);
 
   return <ContentStyled>

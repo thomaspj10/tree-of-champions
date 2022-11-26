@@ -8,6 +8,7 @@ const champions: Record<string, Champion> = {
       health: 5,
       damage: 1,
       attackSpeed: 1,
+      armor: 0,
     }, 
     earnedStats: {
       damage: 0.1,
@@ -20,6 +21,7 @@ const champions: Record<string, Champion> = {
       health: 6,
       damage: 0.5,
       attackSpeed: 1,
+      armor: 0,
     },
     earnedStats: {
       health: 0.5,
@@ -32,6 +34,7 @@ const champions: Record<string, Champion> = {
       health: 4,
       damage: 0.5,
       attackSpeed: 2,
+      armor: 0,
     },
     earnedStats: {
       attackSpeed: 0.05,

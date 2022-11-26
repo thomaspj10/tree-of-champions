@@ -9,15 +9,16 @@ type ProgressCircleProps = {
 
 export function ProgressCircle(props: ProgressCircleProps) {
   const radius = props.radius ?? 10;
+  const progress = Math.min(1, props.progress);
 
   return <Container radius={radius} hasBorder={props.hasBorder}>
-    {props.progress <= 0.5 ?
+    {progress <= 0.5 ?
       <BelowHalfWrapper radius={radius}>
-        <BelowHalfClip radius={radius} progress={props.progress} />
+        <BelowHalfClip radius={radius} progress={progress} />
       </BelowHalfWrapper> :
       <>
         <BelowHalfFill color={props.color} />
-        <AboveHalfFill progress={props.progress} color={props.color} />
+        <AboveHalfFill progress={progress} color={props.color} />
       </>
     }
   </Container>;
@@ -44,18 +45,23 @@ const BelowHalfWrapper = styled.div<{radius: number}>`
   }};
 `;
 
-const BelowHalfClip = styled.div<{radius: number, progress: number}>`
+interface BelowHalfClipProps {
+  radius: number,
+  progress: number,
+}
+const BelowHalfClip = styled.div.attrs<BelowHalfClipProps>(props => ({
+  style: {
+    transform: "rotate(calc(" + props.progress + " * 360deg))",
+    clip: `rect(0, ${props.radius}px, ${props.radius * 2}px, 0)`,
+  }
+}))<BelowHalfClipProps>`
   position: absolute;
   top: 0px;
   left: 0px;
   width: 100%;
   height: 100%;
-  clip: ${props => 
-    `rect(0, ${props.radius}px, ${props.radius * 2}px, 0)`
-  };
   border-radius: 50%;
   background: white;
-  transform: rotate(calc(${props => props.progress} * 360deg));
 `;
 
 const BelowHalfFill = styled.div<{color: string}>`
@@ -68,7 +74,16 @@ const BelowHalfFill = styled.div<{color: string}>`
   background: ${props => props.color};
 `;
 
-const AboveHalfFill = styled.div<{progress: number, color: string}>`
+interface AboveHalfFillProps {
+  progress: number,
+  color: string,
+}
+const AboveHalfFill = styled.div.attrs<AboveHalfFillProps>(props => ({
+  style: {
+    transform: "rotate(calc(" + props.progress + " * 360deg))",
+    background: props.color,
+  }
+}))<AboveHalfFillProps>`
   position: absolute;
   top: 0;
   right: 50%;
@@ -76,7 +91,4 @@ const AboveHalfFill = styled.div<{progress: number, color: string}>`
   width: 100%;
   height: 100%;
   transform-origin: right;
-
-  background: ${props => props.color};
-  transform: rotate(calc(${props => props.progress} * 360deg));
 `;
