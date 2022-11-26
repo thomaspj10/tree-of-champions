@@ -6,7 +6,7 @@ import useStore from "../store";
 
 export function ChampionTree() {
   const champions = useStore(s => pick(s.champions, [
-    'championRows', 'championMap'
+    'championRows',
   ]), shallow);
   const player = useStore(s => s.player.fighter);
   const startFight = useStore(s => s.fighting.startFight);
@@ -17,8 +17,15 @@ export function ChampionTree() {
     <Tree>
     {champions.championRows.map((row, r) =>
       <ChampionRow key={r}>
-        {row.map(c => 
-          <Champion key={c} onClick={() => startFight(player, champions.championMap[c].champion)}>{c}</Champion>
+        {row.map((champ, i) => 
+          (champ.completed ?
+            <ChampionCompleted>{champ.champion.name}</ChampionCompleted> :
+            <ChampionButton
+              key={`${r}:${i}`}
+              onClick={() => startFight(player, champ.champion, r, i)}
+              disabled={champ.locked}
+            >{champ.champion.name}</ChampionButton>
+          )
         )}
       </ChampionRow>
     )}
@@ -31,6 +38,7 @@ const Page = styled.div`
 `;
 
 const nodeWidth = 100;
+const nodeHeight = 40;
 const Tree = styled.div`
   display: flex;
   flex-direction: column;
@@ -43,8 +51,23 @@ const ChampionRow = styled.div`
   justify-content: center;
 `;
 
-const Champion = styled.button`
+const ChampionButton = styled.button`
   width: ${nodeWidth}px;
-  height: 40px;
+  height: ${nodeHeight}px;
   border-radius: 5px;
+  border: none;
+  font-weight: bold;
+`;
+
+const ChampionCompleted = styled.div`
+  width: ${nodeWidth}px;
+  height: ${nodeHeight}px;
+  border-radius: 5px;
+  background-color: rgb(0, 100, 200);
+  color: white;
+  text-decoration: line-through;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

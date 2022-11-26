@@ -7,14 +7,17 @@ export enum Stat {
   Armor = "armor",
 }
 
-export interface Stats {
-  health: number,
-  damage: number,
-  attackSpeed: number,
-  armor: number,
+export enum OtherStat {
+  LifeSteal = "lifeSteal",
 }
 
-export function getEmptyStats(): Stats {
+export type Stats = Record<Stat, number>;
+
+export type EarnedStats = Partial<AllStats>;
+
+export type AllStats = Stats & Partial<Record<OtherStat, number>>;
+
+export function getEmptyStats(): AllStats {
   return {
     [Stat.Health]: 0,
     [Stat.Damage]: 0,
@@ -27,7 +30,13 @@ export interface Champion {
   id: string,
   name: string,
   stats: Stats,
-  earnedStats: Partial<Stats>,
+  earnedStats: EarnedStats,
+}
+
+export interface ChosenChampion {
+  champion: Champion,
+  row: number,
+  index: number,
 }
 
 export interface Fighter {

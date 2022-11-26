@@ -18,7 +18,7 @@ const useStore = create<FullStore>((set, get) => {
   return {
     player: createPlayerSlice(...player),
     champions: createChampionsSlice(...champions),
-    fighting: createFightingSlice(...fighting),
+    fighting: createFightingSlice(...fighting, player[1], champions[1]),
   }
 });
 

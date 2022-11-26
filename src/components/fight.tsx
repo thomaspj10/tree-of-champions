@@ -20,7 +20,7 @@ export default function Fight() {
     <VSContainer>
       <VSLabel>VS</VSLabel>
     </VSContainer>
-    <FighterStats fighter={fighting.championFighter} align="flex-end" />
+    <FighterStats fighter={fighting.championFighter.fighter} align="flex-end" />
   </Section>;
 }
 

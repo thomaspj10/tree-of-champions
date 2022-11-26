@@ -1,7 +1,12 @@
-import { Fighter, MyCreateSlice, Stat, Stats } from "../shared/types";
+import { faFighterJet } from "@fortawesome/free-solid-svg-icons";
+import { EarnedStats, Fighter, MyCreateSlice, Stat, Stats } from "../shared/types";
+import { mergeSumPartial } from "../shared/utils";
 
 export interface PlayerSlice {
   fighter: Fighter,
+
+  wonFight: (newFighter: Fighter, stats: EarnedStats) => void,
+  lostFight: () => void,
 }
 
 const startingStats: Stats = {
@@ -18,6 +23,23 @@ const createPlayerSlice: MyCreateSlice<PlayerSlice, []> = (set, get) => {
       baseStats: startingStats,
       health: startingStats.health!,
       attackCooldown: 0,
+    },
+
+    wonFight: (newFighter, stats) => {
+      set({fighter: {
+        ...newFighter,
+        baseStats: mergeSumPartial(get().fighter.baseStats, stats),
+        attackCooldown: 0,
+      }});
+    },
+
+    lostFight: () => {
+      const fighter = get().fighter;
+      set({fighter: {
+        ...fighter,
+        health: fighter.baseStats.health,
+        attackCooldown: 0,
+      }});
     }
   };
 };

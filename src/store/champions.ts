@@ -1,6 +1,5 @@
-import { mapValues } from "lodash";
 import champions from "../config/champions";
-import { Champion, Fighter, MyCreateSlice } from "../shared/types";
+import { Champion, ChosenChampion, Fighter, MyCreateSlice } from "../shared/types";
 
 export interface ChampionNode {
   champion: Champion,
@@ -9,41 +8,50 @@ export interface ChampionNode {
 }
 
 export interface ChampionsSlice {
-  championMap: Record<string, ChampionNode>,
-  championRows: string[][],
-  fightingChampion: Fighter | null,
+  championRows: ChampionNode[][],
 
-  fightChampion: (id: string) => void,
+  championDefeated: (chosen: ChosenChampion) => void,
 }
+
+const rows = [
+  ['rat'],
+  ['bat', 'spider'],
+];
 
 const createChampionsSlice: MyCreateSlice<ChampionsSlice, []> = (set, get) => {
   return {
-    championMap: mapValues(champions, (c) => ({
-      champion: c,
-      completed: false,
-      locked: true,
-    })),
-    championRows: [
-      ['rat'],
-      ['bat', 'spider'],
-      ['bat', 'rat', 'spider']
-    ],
-    fightingChampion: null,
+    championRows: rows.map((row, r) => 
+      row.map((id, i) => ({
+        champion: champions[id],
+        completed: false,
+        locked: (r !== 0 || i !== 0),
+      }))
+    ),
 
-    fightChampion: (id) => {
-      const champ = get().championMap[id].champion;
-      set({fightingChampion: {
-        name: champ.name,
-        baseStats: champ.stats,
-        health: champ.stats.health ?? 0,
-        attackCooldown: 0,
-      }});
+    championDefeated: (chosen) => {
+      const newRows = [...get().championRows];
+      const newChampionNode = newRows?.[chosen.row]?.[chosen.index] ?? null;
+      if (!newChampionNode) return;
+
+      newChampionNode.completed = true;
+      if (newRows.length > chosen.row + 1) {
+        newRows[chosen.row + 1][chosen.index].locked = false;
+        newRows[chosen.row + 1][chosen.index + 1].locked = false;
+      }
+
+      set({championRows: newRows});
     },
-
-    championKilled: () => {
-      set({fightingChampion: null});
-    }
   };
 };
+
+const NOT_FOUND = "NOT_FOUND";
+function unlockNode(map: Record<string, ChampionNode>, row: number, index: number) {
+  const champId = rows?.[row]?.[index] ?? NOT_FOUND;
+  if (!map[champId]) {
+    return;
+  }
+
+  map[champId].locked = false;
+}
 
 export default createChampionsSlice;
