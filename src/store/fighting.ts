@@ -29,6 +29,7 @@ const createFightingSlice: MyCreateSlice<FightingSlice, [() => PlayerSlice, () =
           baseStats: champion.stats,
           health: champion.stats.health ?? 0,
           attackCooldown: 0,
+          statusEffects: {},
         },
         row, index,
       }})
@@ -62,19 +63,24 @@ const createFightingSlice: MyCreateSlice<FightingSlice, [() => PlayerSlice, () =
 function updateFighter(elapsed: number, fighter: Fighter, opponent: Fighter) {
   const attackTime = (1 / (fighter.baseStats.attackSpeed ?? 0));
   if (fighter.attackCooldown >= attackTime) {
-    fighter.attackCooldown = 0;
-
-    let damage = fighter.baseStats.damage ?? 0;
-    if (opponent.baseStats.armor) {
-      damage -= opponent.baseStats.armor;
-    }
-    opponent.health -= damage;
-
-    if (fighter.baseStats.lifeSteal) {
-      fighter.health = Math.min(fighter.health + damage * fighter.baseStats.lifeSteal, fighter.baseStats.health ?? 0);
-    }
-  } else {
     fighter.attackCooldown += elapsed;
+    return;
+  }
+  
+  fighter.attackCooldown = 0;
+
+  let damage = fighter.baseStats.damage ?? 0;
+  if (opponent.baseStats.armor) {
+    damage -= opponent.baseStats.armor;
+  }
+  opponent.health -= damage;
+
+  if (fighter.baseStats.lifeSteal) {
+    fighter.health = Math.min(fighter.health + damage * fighter.baseStats.lifeSteal, fighter.baseStats.health ?? 0);
+  }
+
+  if (fighter.baseStats.poison) {
+    
   }
 }
 

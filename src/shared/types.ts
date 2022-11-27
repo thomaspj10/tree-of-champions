@@ -15,6 +15,17 @@ export enum Stat {
 
 export type Stats = Partial<Record<Stat, number>>;
 
+export enum Status {
+  Poisoned = 'poisoned',
+  Stunned = 'stunned',
+}
+
+export interface StatusEffect {
+  status: Status,
+  timeLeft: number,
+  strength: number,
+}
+
 export function getEmptyStats(): Stats {
   return {
     [Stat.Health]: 0,
@@ -39,6 +50,7 @@ export interface ChosenChampion {
 export interface Fighter {
   name: string,
   baseStats: Stats,
+  statusEffects: Partial<Record<Status, StatusEffect>>,
   health: number,
   attackCooldown: number,
 }

@@ -21,6 +21,7 @@ const createPlayerSlice: MyCreateSlice<PlayerSlice, []> = (set, get) => {
       baseStats: startingStats,
       health: startingStats.health!,
       attackCooldown: 0,
+      statusEffects: {},
     },
 
     wonFight: (newFighter, stats) => {
