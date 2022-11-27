@@ -34,7 +34,7 @@ export function ChampionTree() {
               {Object.entries(champ.champion.earnedStats)
               .map(([s, val]) => [enumFromKey(Stat, s)!, val] as [Stat, number])
               .map(([s, val]) => 
-                <StatStyled key={s} data-tip={`Gain ${statsConfig[s].label} on kill`} data-place="bottom">
+                <StatStyled key={s} data-tip={`On Defeat Gain ${statsConfig[s].label}`} data-place="bottom">
                   <span>+</span>
                   <Icon icon={statsConfig[s].icon} size="xs" pixelated />
                   <span>{autoFormatNumber(val)}</span>
@@ -84,7 +84,7 @@ const ChampionButton = styled.button`
   &:disabled {
     background-color: #888;
     outline: none;
-    cursor: not-allowed;
+    cursor: default;
 
     i {
       filter: opacity(0.3);
