@@ -5,34 +5,34 @@ const champions: Record<string, Champion> = {
     id: '',
     name: 'Rat',
     stats: {
-      health: 5,
-      damage: 1,
-      attackSpeed: 1,
+      health: 40,
+      damage: 5,
+      attackSpeed: 0.5,
       armor: 0,
     }, 
     earnedStats: {
-      damage: 0.1,
+      health: 2,
     },
   },
   'bat': {
     id: '',
     name: 'Bat',
     stats: {
-      health: 6,
-      damage: 0.5,
+      health: 30,
+      damage: 3,
       attackSpeed: 1,
       armor: 0,
     },
     earnedStats: {
-      health: 0.5,
+      damage: 1,
     }
   },
   'spider': {
     id: '',
     name: 'Spider',
     stats: {
-      health: 4,
-      damage: 0.5,
+      health: 25,
+      damage: 2,
       attackSpeed: 2,
       armor: 0,
     },
@@ -44,8 +44,8 @@ const champions: Record<string, Champion> = {
     id: '',
     name: 'Skeleton',
     stats: {
-      health: 20,
-      damage: 2,
+      health: 100,
+      damage: 5,
       attackSpeed: 0.75,
       armor: 1,
     },
@@ -57,10 +57,11 @@ const champions: Record<string, Champion> = {
     id: '',
     name: 'Flock of Bats',
     stats: {
-      health: 12,
-      damage: 1,
+      health: 80,
+      damage: 2,
       attackSpeed: 2,
       armor: 0,
+      lifeSteal: 0.5,
     },
     earnedStats: {
       lifeSteal: 0.05,

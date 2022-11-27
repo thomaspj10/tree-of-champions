@@ -9,9 +9,9 @@ export interface PlayerSlice {
 }
 
 const startingStats: Stats = {
-  [Stat.Health]: 10,
-  [Stat.Damage]: 2,
-  [Stat.AttackSpeed]: 0.5,
+  [Stat.Health]: 100,
+  [Stat.Damage]: 10,
+  [Stat.AttackSpeed]: 0.25,
 };
 
 const createPlayerSlice: MyCreateSlice<PlayerSlice, []> = (set, get) => {
@@ -27,6 +27,7 @@ const createPlayerSlice: MyCreateSlice<PlayerSlice, []> = (set, get) => {
       set({fighter: {
         ...newFighter,
         baseStats: mergeSumPartial(get().fighter.baseStats, stats),
+        health: newFighter.health + (stats.health ?? 0),
         attackCooldown: 0,
       }});
     },
