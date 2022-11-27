@@ -3,6 +3,10 @@ import { pick } from "lodash";
 import shallow from "zustand/shallow";
 
 import useStore from "../store";
+import { autoFormatNumber, enumFromKey } from "../shared/utils";
+import { Stat } from "../shared/types";
+import statsConfig from "../config/stats";
+import Icon from "../shared/components/icon";
 
 export function ChampionTree() {
   const champions = useStore(s => pick(s.champions, [
@@ -24,7 +28,20 @@ export function ChampionTree() {
               key={`${r}:${i}`}
               onClick={() => startFight(player, champ.champion, r, i)}
               disabled={champ.locked}
-            >{champ.champion.name}</ChampionButton>
+            >
+              <strong>{champ.champion.name}</strong>
+              <Stats>
+              {Object.entries(champ.champion.earnedStats)
+              .map(([s, val]) => [enumFromKey(Stat, s)!, val] as [Stat, number])
+              .map(([s, val]) => 
+                <StatStyled key={s} data-tip={`Gain ${statsConfig[s].label} on kill`} data-place="bottom">
+                  <span>+</span>
+                  <Icon icon={statsConfig[s].icon} size="xs" pixelated />
+                  <span>{autoFormatNumber(val)}</span>
+                </StatStyled>
+              )}
+              </Stats>
+            </ChampionButton>
           )
         )}
       </ChampionRow>
@@ -38,7 +55,7 @@ const Page = styled.div`
 `;
 
 const nodeWidth = 100;
-const nodeHeight = 40;
+const nodeHeight = 50;
 const Tree = styled.div`
   display: flex;
   flex-direction: column;
@@ -57,17 +74,48 @@ const ChampionButton = styled.button`
   border-radius: 5px;
   border: none;
   font-weight: bold;
+  padding: 3px 6px;
+  background-color: #CCC;
+
+  &:hover {
+    outline: 3px solid #3d73ba;
+  }
+
+  &:disabled {
+    background-color: #888;
+    outline: none;
+    cursor: not-allowed;
+
+    i {
+      filter: opacity(0.3);
+    }
+  }
 `;
 
 const ChampionCompleted = styled.div`
   width: ${nodeWidth}px;
   height: ${nodeHeight}px;
   border-radius: 5px;
-  background-color: rgb(0, 100, 200);
+  background-color: #419157;
   color: white;
   text-decoration: line-through;
   font-weight: bold;
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+const Stats = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 6px;
+`;
+
+const StatStyled = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
 `;

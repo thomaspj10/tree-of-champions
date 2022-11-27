@@ -13,13 +13,17 @@ $sizes: (
     &.icon--#{$class} {
       width: $size + 0px;
       height: $size + 0px;
-      transform: scale(calc($size/64));
+      transform: scale(calc($size/16));
       transform-origin: top left;
     }
   }
 
   i {
     display: inline-block;
+
+    &.pixelated {
+      image-rendering: pixelated;
+    }
   }
 
   @include sprites($spritesheet-sprites)
