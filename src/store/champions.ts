@@ -58,7 +58,7 @@ function getInitialRows() {
     row.map((id, i) => ({
       champion: champions[id],
       completed: false,
-      locked: (r !== 0),
+      locked: (r !== 0) && false,
     }))
   );
 }

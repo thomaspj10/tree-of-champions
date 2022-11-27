@@ -1,10 +1,12 @@
 import { pick } from "lodash";
 import styled from "styled-components";
 import shallow from "zustand/shallow";
+import statusConfig from "../config/statuses";
 import { ProgressCircle } from "../shared/components/circle-progress-bar";
+import Icon from "../shared/components/icon";
 import { ProgressBar } from "../shared/components/progress-bar";
 import { Fighter } from "../shared/types";
-import { autoFormatNumber } from "../shared/utils";
+import { autoFormatNumber, formatNumber } from "../shared/utils";
 import useStore from "../store";
 
 export default function Fight() {
@@ -39,7 +41,19 @@ function FighterStats(props: {fighter: Fighter, align?: string}) {
       color="white"
       radius={20}
     />
-    <div>{autoFormatNumber(props.fighter.health)}/{autoFormatNumber(props.fighter.baseStats.health ?? 0)}</div>
+    <HealthAndStatus>
+      <div>{formatNumber(props.fighter.health, 0, 0)}/{formatNumber(props.fighter.baseStats.health ?? 0, 0, 0)}</div>
+      <Statuses>
+      {Object.values(props.fighter.statusEffects)
+      .filter(e => e)
+      .map(e => 
+        <Status key={e.status}>
+          <span>{formatNumber(e.strength, 0, 0)}</span>
+          <Icon icon={statusConfig[e.status].icon} size="xs" />
+        </Status>
+      )}
+      </Statuses>
+    </HealthAndStatus>
     <ProgressBar
       progress={props.fighter.health / (props.fighter.baseStats.health ?? 1)}
       hasBorder={true}
@@ -80,4 +94,23 @@ const VSContainer = styled.div`
 const VSLabel = styled.p`
   font-size: 20px;
   color: #888;
+`;
+
+const HealthAndStatus = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+`;
+
+const Statuses = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+`;
+
+const Status = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
 `;

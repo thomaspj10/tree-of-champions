@@ -71,11 +71,11 @@ const champions: Record<string, Champion> = {
     id: '',
     name: 'Giant Python',
     stats: {
-      health: 30,
+      health: 60,
       damage: 1,
       attackSpeed: 0.5,
       armor: 0,
-      poison: 1,
+      poison: 2.5,
     },
     earnedStats: {
       poison: 0.1,
@@ -89,10 +89,10 @@ const champions: Record<string, Champion> = {
       damage: 5,
       attackSpeed: 0.25,
       armor: 1,
-      stunChance: 0.5,
+      stunChance: 50,
     },
     earnedStats: {
-      stunChance: 0.1,
+      stunChance: 10,
     }
   },
 };

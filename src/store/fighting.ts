@@ -1,4 +1,5 @@
-import { Champion, ChosenChampion, Fighter, MyCreateSlice } from "../shared/types";
+import { Champion, ChosenChampion, Fighter, MyCreateSlice, Stats, Status, StatusEffect } from "../shared/types";
+import { using } from "../shared/utils";
 import { ChampionsSlice } from "./champions";
 import { PlayerSlice } from "./player";
 
@@ -61,8 +62,14 @@ const createFightingSlice: MyCreateSlice<FightingSlice, [() => PlayerSlice, () =
 };
 
 function updateFighter(elapsed: number, fighter: Fighter, opponent: Fighter) {
+  updateEffect(elapsed, fighter, Status.Poisoned);
+  updateEffect(elapsed, fighter, Status.Stunned);
+  if (fighter.statusEffects.stunned || fighter.health <= 0) {
+    return;
+  }
+
   const attackTime = (1 / (fighter.baseStats.attackSpeed ?? 0));
-  if (fighter.attackCooldown >= attackTime) {
+  if (fighter.attackCooldown < attackTime) {
     fighter.attackCooldown += elapsed;
     return;
   }
@@ -79,9 +86,44 @@ function updateFighter(elapsed: number, fighter: Fighter, opponent: Fighter) {
     fighter.health = Math.min(fighter.health + damage * fighter.baseStats.lifeSteal, fighter.baseStats.health ?? 0);
   }
 
-  if (fighter.baseStats.poison) {
-    
+  using(fighter.baseStats.poison, p => {
+    applyStatus(opponent, Status.Poisoned, p);
+  });
+
+  using(fighter.baseStats.stunChance, sc => {
+    const stunHit = Math.random() < (sc / 100);
+    if (stunHit) {
+      applyStatus(opponent, Status.Stunned, 3);
+    }
+  });
+}
+
+function updateEffect(elapsed: number, fighter: Fighter, status: Status) {
+  const effect = fighter.statusEffects[status];
+  if (!effect) return;
+
+  effect.timeLeft -= elapsed;
+  if (effect.timeLeft <= 0) {
+    fighter.statusEffects[status] = undefined;
   }
+
+  if (status === Status.Poisoned) {
+    fighter.health -= (effect.strength * elapsed);
+  }
+
+  effect.strength -= statusStrengthMap[status] * elapsed;
+}
+
+const statusStrengthMap: Record<Status, number> = {
+  [Status.Poisoned]: 2,
+  [Status.Stunned]: 1,
+}
+
+function applyStatus(fighter: Fighter, status: Status, value: number) {
+  const newStatus: StatusEffect = fighter.statusEffects[status] ?? {status, strength: 0, timeLeft: 0};
+  newStatus.strength += statusStrengthMap[status] * value;
+  newStatus.timeLeft += value;
+  fighter.statusEffects[status] = newStatus;
 }
 
 export default createFightingSlice;
