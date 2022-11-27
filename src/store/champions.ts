@@ -17,6 +17,11 @@ export interface ChampionsSlice {
 const rows = [
   ['rat', 'bat', 'spider'],
   ['skeleton', 'flockOfBats', 'python', 'ogre'],
+  ['rat', 'rat', 'rat', 'rat', 'rat'],
+  ['rat', 'rat', 'rat', 'rat'],
+  ['rat', 'rat', 'rat'],
+  ['rat', 'rat'],
+  ['rat'],
 ];
 
 const createChampionsSlice: MyCreateSlice<ChampionsSlice, []> = (set, get) => {
