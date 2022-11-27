@@ -30,6 +30,7 @@ const createPlayerSlice: MyCreateSlice<PlayerSlice, []> = (set, get) => {
         baseStats: mergeSumPartial(get().fighter.baseStats, stats),
         health: newFighter.health + (stats.health ?? 0),
         attackCooldown: 0,
+        statusEffects: {},
       }});
     },
 
@@ -39,6 +40,7 @@ const createPlayerSlice: MyCreateSlice<PlayerSlice, []> = (set, get) => {
         ...fighter,
         health: fighter.baseStats.health ?? 0,
         attackCooldown: 0,
+        statusEffects: {},
       }});
     }
   };

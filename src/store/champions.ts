@@ -40,8 +40,19 @@ const createChampionsSlice: MyCreateSlice<ChampionsSlice, []> = (set, get) => {
         node.locked = true;
       })
       if (newRows.length > chosen.row + 1) {
-        newRows[chosen.row + 1][chosen.index].locked = false;
-        newRows[chosen.row + 1][chosen.index + 1].locked = false;
+        if (newRows[chosen.row + 1].length > newRows[chosen.row].length) {
+          newRows[chosen.row + 1][chosen.index].locked = false;
+          newRows[chosen.row + 1][chosen.index + 1].locked = false;
+        } else {
+          if (chosen.index == 0) {
+            newRows[chosen.row + 1][0].locked = false;
+          } else if (chosen.index == newRows[chosen.row].length - 1) {
+            newRows[chosen.row + 1][newRows[chosen.row + 1].length - 1].locked = false;
+          } else {
+            newRows[chosen.row + 1][chosen.index - 1].locked = false;
+            newRows[chosen.row + 1][chosen.index].locked = false;
+          }
+        }
       }
 
       set({championRows: newRows});
@@ -58,7 +69,7 @@ function getInitialRows() {
     row.map((id, i) => ({
       champion: champions[id],
       completed: false,
-      locked: (r !== 0) && false,
+      locked: (r !== 0),
     }))
   );
 }
