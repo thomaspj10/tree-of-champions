@@ -34,7 +34,6 @@ const champions: Record<string, Champion> = {
       health: 25,
       damage: 2,
       attackSpeed: 2,
-      armor: 0,
     },
     earnedStats: {
       attackSpeed: 0.05,
@@ -44,13 +43,14 @@ const champions: Record<string, Champion> = {
     id: '',
     name: 'Skeleton',
     stats: {
-      health: 100,
+      health: 50,
       damage: 5,
       attackSpeed: 0.75,
-      armor: 1,
+      armor: 4,
     },
     earnedStats: {
       armor: 0.25,
+      health: -2,
     }
   },
   'flockOfBats': {
@@ -60,11 +60,11 @@ const champions: Record<string, Champion> = {
       health: 80,
       damage: 2,
       attackSpeed: 2,
-      armor: 0,
       lifeSteal: 0.5,
     },
     earnedStats: {
       lifeSteal: 0.05,
+      health: -5,
     }
   },
   'python': {
@@ -74,11 +74,11 @@ const champions: Record<string, Champion> = {
       health: 60,
       damage: 1,
       attackSpeed: 0.5,
-      armor: 0,
       poison: 2.5,
     },
     earnedStats: {
-      poison: 0.1,
+      poison: 0.25,
+      damage: -0.75,
     }
   },
   'ogre': {
@@ -93,6 +93,7 @@ const champions: Record<string, Champion> = {
     },
     earnedStats: {
       stunChance: 10,
+      attackSpeed: -0.05,
     }
   },
 };

@@ -34,10 +34,9 @@ export function ChampionTree() {
               {Object.entries(champ.champion.earnedStats)
               .map(([s, val]) => [enumFromKey(Stat, s)!, val] as [Stat, number])
               .map(([s, val]) => 
-                <StatStyled key={s} data-tip={`On Defeat Gain ${statsConfig[s].label}`} data-place="bottom">
-                  <span>+</span>
+                <StatStyled key={s} data-tip={`On Defeat ${val > 0 ? 'Gain' : 'Lose'} ${statsConfig[s].label}`} data-place="bottom">
+                  <span>{val > 0 ? '+' : ''}{autoFormatNumber(val)}</span>
                   <Icon icon={statsConfig[s].icon} size="xs" pixelated />
-                  <span>{autoFormatNumber(val)}</span>
                 </StatStyled>
               )}
               </Stats>
@@ -54,8 +53,8 @@ const Page = styled.div`
   width: 800px;
 `;
 
-const nodeWidth = 100;
-const nodeHeight = 50;
+const nodeWidth = 140;
+const nodeHeight = 80;
 const Tree = styled.div`
   display: flex;
   flex-direction: column;
@@ -64,7 +63,7 @@ const Tree = styled.div`
 
 const ChampionRow = styled.div`
   display: flex;
-  gap: ${nodeWidth/2}px;
+  gap: 30px;
   justify-content: center;
 `;
 

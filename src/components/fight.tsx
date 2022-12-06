@@ -1,4 +1,6 @@
 import { pick } from "lodash";
+import { useEffect } from "react";
+import ReactTooltip from "react-tooltip";
 import styled from "styled-components";
 import shallow from "zustand/shallow";
 import statusConfig from "../config/statuses";
@@ -6,13 +8,17 @@ import { ProgressCircle } from "../shared/components/circle-progress-bar";
 import Icon from "../shared/components/icon";
 import { ProgressBar } from "../shared/components/progress-bar";
 import { Fighter } from "../shared/types";
-import { autoFormatNumber, formatNumber } from "../shared/utils";
+import { formatNumber } from "../shared/utils";
 import useStore from "../store";
 
 export default function Fight() {
   const fighting = useStore(s => pick(s.fighting, [
     'player', 'championFighter',
   ]), shallow);
+
+  useEffect(() => {
+    ReactTooltip.rebuild();
+  }, [fighting.player, fighting.championFighter]);
 
   if (!fighting.player || !fighting.championFighter) {
     return <BeforeFight>
@@ -45,12 +51,12 @@ function FighterStats(props: {fighter: Fighter, align?: string}) {
       <div>{formatNumber(props.fighter.health, 0, 0)}/{formatNumber(props.fighter.baseStats.health ?? 0, 0, 0)}</div>
       <Statuses>
       {Object.values(props.fighter.statusEffects)
-      .filter(e => e)
-      .map(e => 
-        <Status key={e.status}>
-          <span>{formatNumber(e.strength, 0, 0)}</span>
-          <Icon icon={statusConfig[e.status].icon} size="xs" />
-        </Status>
+        .filter(e => e)
+        .map(e => 
+          <Status key={e.status} data-tip={statusConfig[e.status].label}>
+            <span>{formatNumber(e.strength, 0, 0)}</span>
+            <Icon icon={statusConfig[e.status].icon} size="xs" />
+          </Status>
       )}
       </Statuses>
     </HealthAndStatus>

@@ -110,19 +110,16 @@ function updateEffect(elapsed: number, fighter: Fighter, status: Status) {
   if (status === Status.Poisoned) {
     fighter.health -= (effect.strength * elapsed);
   }
-
-  effect.strength -= statusStrengthMap[status] * elapsed;
 }
 
-const statusStrengthMap: Record<Status, number> = {
-  [Status.Poisoned]: 2,
-  [Status.Stunned]: 1,
+const statusTimeMap: Record<Status, number> = {
+  [Status.Poisoned]: 5,
+  [Status.Stunned]: 3,
 }
 
 function applyStatus(fighter: Fighter, status: Status, value: number) {
-  const newStatus: StatusEffect = fighter.statusEffects[status] ?? {status, strength: 0, timeLeft: 0};
-  newStatus.strength += statusStrengthMap[status] * value;
-  newStatus.timeLeft += value;
+  const newStatus: StatusEffect = fighter.statusEffects[status] ?? {status, strength: 0, timeLeft: statusTimeMap[status]};
+  newStatus.strength += value;
   fighter.statusEffects[status] = newStatus;
 }
 
