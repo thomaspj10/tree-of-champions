@@ -27,6 +27,7 @@ const createFightingSlice: MyCreateSlice<FightingSlice, [() => PlayerSlice, () =
         champion: champion,
         fighter: {
           name: champion.name,
+          spriteSheet: champion.spriteSheet,
           baseStats: champion.stats,
           health: champion.stats.health ?? 0,
           attackCooldown: 0,

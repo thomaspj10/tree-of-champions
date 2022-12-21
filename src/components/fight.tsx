@@ -31,15 +31,17 @@ export default function Fight() {
     <VSContainer>
       <VSLabel>VS</VSLabel>
     </VSContainer>
-    <FighterStats fighter={fighting.championFighter.fighter} align="flex-end" />
+    <FighterStats fighter={fighting.championFighter.fighter} flip={true} />
   </ActiveFight>;
 }
 
 
-function FighterStats(props: {fighter: Fighter, align?: string}) {
+function FighterStats(props: {fighter: Fighter, flip?: boolean}) {
   const attackTime = 1 / (props.fighter.baseStats.attackSpeed ?? 0);
-  return <FighterStatsStyled align={props.align ?? "flex-start"}>
+  return <FighterStatsStyled align={props.flip ? "flex-end" : "flex-start"}>
     <h2>{props.fighter.name}</h2>
+
+    <Sprite spriteSheet={props.fighter.spriteSheet} flip={props.flip}></Sprite>
 
     <ProgressCircle
       progress={props.fighter.attackCooldown / attackTime}
@@ -85,6 +87,7 @@ const ActiveFight = styled.div`
 `;
 
 const FighterStatsStyled = styled.div<{align: string}>`
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: ${props => props.align};
@@ -119,4 +122,22 @@ const Status = styled.div`
   display: flex;
   flex-direction: row;
   gap: 2px;
+`;
+
+const animStart = 8 * -16;
+const Sprite = styled.div<{spriteSheet: string, flip?: boolean}>`
+  position: absolute;
+  left: 30px;
+  top: 60px;
+  background-image: url(${p => p.spriteSheet});
+  width: 16px;
+  height: 16px;
+  transform: scaleX(${p => p.flip ? -3 : 3}) scaleY(3);
+  image-rendering: pixelated;
+  animation: idle 1000ms steps(4) infinite;
+
+  @keyframes idle {
+    from { background-position: ${animStart}px -32px }
+    to { background-position: ${animStart - 64}px -32px }
+  }
 `;

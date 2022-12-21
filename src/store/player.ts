@@ -18,6 +18,7 @@ const createPlayerSlice: MyCreateSlice<PlayerSlice, []> = (set, get) => {
   return {
     fighter: {
       name: "Player",
+      spriteSheet: '',
       baseStats: startingStats,
       health: startingStats.health!,
       attackCooldown: 0,

@@ -37,6 +37,7 @@ export function getEmptyStats(): Stats {
 export interface Champion {
   id: string,
   name: string,
+  spriteSheet: string,
   stats: Stats,
   earnedStats: Stats,
 }
@@ -49,6 +50,7 @@ export interface ChosenChampion {
 
 export interface Fighter {
   name: string,
+  spriteSheet: string,
   baseStats: Stats,
   statusEffects: Partial<Record<Status, StatusEffect>>,
   health: number,
