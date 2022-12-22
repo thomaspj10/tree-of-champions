@@ -16,8 +16,8 @@ export interface ChampionsSlice {
 
 const rows = [
   ['rat', 'bat', 'spider'],
-  ['skeleton', 'flockOfBats', 'python', 'ogre'],
-  ['rat', 'rat', 'rat', 'rat', 'rat'],
+  ['skeleton', 'ghost', 'python', 'beast'],
+  ['rat', 'rat', 'rat', 'shadow', 'rat'],
   ['rat', 'rat', 'rat', 'rat'],
   ['rat', 'rat', 'rat'],
   ['rat', 'rat'],

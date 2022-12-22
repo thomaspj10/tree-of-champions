@@ -18,7 +18,7 @@ const createPlayerSlice: MyCreateSlice<PlayerSlice, []> = (set, get) => {
   return {
     fighter: {
       name: "Player",
-      spriteSheet: '',
+      spriteSheet: 'Bear_16x16.png',
       baseStats: startingStats,
       health: startingStats.health!,
       attackCooldown: 0,

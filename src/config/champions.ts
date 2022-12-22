@@ -4,7 +4,7 @@ const champions: Record<string, Champion> = {
   'rat': {
     id: '',
     name: 'Rat',
-    spriteSheet: '',
+    spriteSheet: 'Spider_16x16.png',
     stats: {
       health: 40,
       damage: 5,
@@ -18,7 +18,7 @@ const champions: Record<string, Champion> = {
   'bat': {
     id: '',
     name: 'Bat',
-    spriteSheet: '',
+    spriteSheet: 'Spider_16x16.png',
     stats: {
       health: 30,
       damage: 3,
@@ -57,10 +57,10 @@ const champions: Record<string, Champion> = {
       health: -2,
     }
   },
-  'flockOfBats': {
+  'ghost': {
     id: '',
-    name: 'Flock of Bats',
-    spriteSheet: '',
+    name: 'Ghost',
+    spriteSheet: 'Ghost_16x16.png',
     stats: {
       health: 80,
       damage: 2,
@@ -87,10 +87,10 @@ const champions: Record<string, Champion> = {
       damage: -0.75,
     }
   },
-  'ogre': {
+  'beast': {
     id: '',
-    name: 'Ogre',
-    spriteSheet: '',
+    name: 'Beast',
+    spriteSheet: 'Creature_16x16.png',
     stats: {
       health: 100,
       damage: 5,
@@ -101,6 +101,22 @@ const champions: Record<string, Champion> = {
     earnedStats: {
       stunChance: 10,
       attackSpeed: -0.05,
+    }
+  },
+  'shadow': {
+    id: '',
+    name: 'Shadow',
+    spriteSheet: 'Shadow_16x16.png',
+    stats: {
+      health: 200,
+      damage: 6,
+      attackSpeed: 1.1,
+      armor: 2,
+      lifeSteal: 0.1,
+    },
+    earnedStats: {
+      lifeSteal: 0.1,
+      damage: -0.25,
     }
   },
 };

@@ -7,7 +7,7 @@ const statsConfig: Record<Stat, {label: string, icon: string}> = {
   },
   [Stat.Damage]: {
     label: "Damage",
-    icon: 'skull',
+    icon: 'sword',
   },
   [Stat.AttackSpeed]: {
     label: "Attack Speed",
@@ -19,7 +19,7 @@ const statsConfig: Record<Stat, {label: string, icon: string}> = {
   },
   [Stat.LifeSteal]: {
     label: "Lifesteal",
-    icon: 'cracked_heart',
+    icon: 'lifesteal',
   },
   [Stat.HealOnKill]: {
     label: "Heal on Kill",
