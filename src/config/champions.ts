@@ -54,7 +54,7 @@ const champions: Record<string, Champion> = {
     },
     earnedStats: {
       armor: 0.25,
-      health: -2,
+      damage: -1,
     }
   },
   'ghost': {
@@ -93,9 +93,9 @@ const champions: Record<string, Champion> = {
     spriteSheet: 'Creature_16x16.png',
     stats: {
       health: 100,
-      damage: 5,
+      damage: 15,
       attackSpeed: 0.25,
-      armor: 1,
+      armor: 5,
       stunChance: 50,
     },
     earnedStats: {
@@ -119,6 +119,36 @@ const champions: Record<string, Champion> = {
       damage: -0.25,
     }
   },
+  'beholder': {
+    id: '',
+    name: 'Beholder',
+    spriteSheet: 'Beholder_16x16.png',
+    stats: {
+      health: 200,
+      damage: 15,
+      attackSpeed: 0.5,
+      armor: 5,
+      critChance: 0.5,
+    },
+    earnedStats: {
+      lifeSteal: 0.1,
+      damage: -0.25,
+    }
+  },
+  'god': {
+    id: '',
+    name: 'DEATH',
+    spriteSheet: '',
+    stats: {
+      health: 2000,
+      damage: 100,
+      attackSpeed: 2,
+      armor: 100,
+      lifeSteal: 1,
+    },
+    earnedStats: {
+    }
+  }
 };
 
 Object.keys(champions)

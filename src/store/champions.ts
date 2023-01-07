@@ -17,11 +17,11 @@ export interface ChampionsSlice {
 const rows = [
   ['rat', 'bat', 'spider'],
   ['skeleton', 'ghost', 'python', 'beast'],
-  ['rat', 'rat', 'rat', 'shadow', 'rat'],
-  ['rat', 'rat', 'rat', 'rat'],
-  ['rat', 'rat', 'rat'],
-  ['rat', 'rat'],
-  ['rat'],
+  ['god', 'god', 'beholder', 'shadow', 'god'],
+  ['god', 'god', 'god', 'god'],
+  ['god', 'god', 'god'],
+  ['god', 'god'],
+  ['god'],
 ];
 
 const createChampionsSlice: MyCreateSlice<ChampionsSlice, []> = (set, get) => {

@@ -78,6 +78,9 @@ function updateFighter(elapsed: number, fighter: Fighter, opponent: Fighter) {
   fighter.attackCooldown = 0;
 
   let damage = fighter.baseStats.damage ?? 0;
+  if (Math.random() < (fighter.baseStats.critChance ?? 0)) {
+    damage *= 2;
+  }
   if (opponent.baseStats.armor) {
     damage -= opponent.baseStats.armor;
   }
