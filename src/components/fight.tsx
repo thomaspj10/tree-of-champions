@@ -60,7 +60,7 @@ function FighterStats(props: {fighter: Fighter, flip?: boolean}) {
         .filter(e => e)
         .map(e => 
           <Status key={e.status} data-tip={statusConfig[e.status].label}>
-            <span>{formatNumber(e.strength, 0, 0)}</span>
+            <span>{formatNumber(e.strength, 0, 2)}</span>
             <Icon icon={statusConfig[e.status].icon} size="xs" />
           </Status>
       )}

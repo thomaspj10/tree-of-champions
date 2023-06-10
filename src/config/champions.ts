@@ -12,7 +12,7 @@ const champions: Record<string, Champion> = {
       armor: 0,
     }, 
     earnedStats: {
-      health: 2,
+      health: 5,
     },
   },
   'bat': {
@@ -54,7 +54,7 @@ const champions: Record<string, Champion> = {
     },
     earnedStats: {
       armor: 0.25,
-      damage: -1,
+      damage: -0.75,
     }
   },
   'ghost': {
@@ -65,10 +65,10 @@ const champions: Record<string, Champion> = {
       health: 80,
       damage: 2,
       attackSpeed: 2,
-      lifeSteal: 0.5,
+      lifeSteal: 5,
     },
     earnedStats: {
-      lifeSteal: 0.05,
+      lifeSteal: 0.5,
       health: -5,
     }
   },
@@ -99,7 +99,7 @@ const champions: Record<string, Champion> = {
       stunChance: 50,
     },
     earnedStats: {
-      stunChance: 10,
+      stunChance: 2,
       attackSpeed: -0.05,
     }
   },
@@ -112,11 +112,11 @@ const champions: Record<string, Champion> = {
       damage: 6,
       attackSpeed: 1.1,
       armor: 2,
-      lifeSteal: 0.1,
+      lifeSteal: 5,
     },
     earnedStats: {
-      lifeSteal: 0.1,
-      damage: -0.25,
+      lifeSteal: 0.5,
+      damage: -0.5,
     }
   },
   'beholder': {
@@ -131,8 +131,98 @@ const champions: Record<string, Champion> = {
       critChance: 0.5,
     },
     earnedStats: {
-      lifeSteal: 0.1,
+      health: -7.5,
+      damage: 2,
+    }
+  },
+  'witch': {
+    id: '',
+    name: 'Witch',
+    spriteSheet: '',
+    stats: {
+      health: 75,
+      damage: 3,
+      attackSpeed: 5,
+      stunChance: 5,
+      armor: 2,
+    },
+    earnedStats: {
+      health: 10,
       damage: -0.25,
+    }
+  },
+  'knight': {
+    id: '',
+    name: 'Knight',
+    spriteSheet: '',
+    stats: {
+      health: 150,
+      damage: 20,
+      attackSpeed: 0.3,
+      armor: 5,
+    },
+    earnedStats: {
+      armor: 0.5,
+      health: -10,
+    }
+  },
+  'flock_of_bats': {
+    id: '',
+    name: 'Flock of bats',
+    spriteSheet: '',
+    stats: {
+      health: 50,
+      damage: 35,
+      attackSpeed: 2,
+    },
+    earnedStats: {
+      damage: 1.5,
+      lifeSteal: -0.25,
+    }
+  },
+  'prince': {
+    id: '',
+    name: 'Prince',
+    spriteSheet: '',
+    stats: {
+      health: 350,
+      damage: 25,
+      attackSpeed: 1,
+      armor: 5
+    },
+    earnedStats: {
+      critChance: 0.5,
+      health: 2
+    }
+  },
+  'prince_of_darkness': {
+    id: '',
+    name: 'Prince of darkness',
+    spriteSheet: '',
+    stats: {
+      health: 500,
+      damage: 35,
+      attackSpeed: 1.5,
+      armor: 10
+    },
+    earnedStats: {
+      damage: 5,
+      health: 25
+    }
+  },
+  'the_devil': {
+    id: '',
+    name: 'The devil',
+    spriteSheet: '',
+    stats: {
+      health: 1000,
+      damage: 50,
+      attackSpeed: 1.25,
+      armor: 10
+    },
+    earnedStats: {
+      damage: 5,
+      health: 25
     }
   },
   'god': {
@@ -141,10 +231,10 @@ const champions: Record<string, Champion> = {
     spriteSheet: '',
     stats: {
       health: 2000,
-      damage: 100,
-      attackSpeed: 2,
-      armor: 100,
-      lifeSteal: 1,
+      damage: 75,
+      attackSpeed: 1.5,
+      armor: 20,
+      lifeSteal: 5,
     },
     earnedStats: {
     }

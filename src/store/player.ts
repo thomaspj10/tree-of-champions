@@ -1,5 +1,6 @@
 import { Fighter, MyCreateSlice, Stat, Stats } from "../shared/types";
 import { mergeSumPartial } from "../shared/utils";
+import { SAVE_KEY } from "../shared/constants"
 
 export interface PlayerSlice {
   fighter: Fighter,
@@ -8,12 +9,12 @@ export interface PlayerSlice {
   lostFight: () => void,
 }
 
-const startingStats: Stats = {
+const startingStats: Stats = localStorage.getItem(SAVE_KEY) === null ? {
   [Stat.Health]: 100,
   [Stat.Damage]: 10,
   [Stat.AttackSpeed]: 0.25,
-  [Stat.CritChance]: 0.75,
-};
+  [Stat.CritChance]: 5,
+} : JSON.parse(localStorage.getItem(SAVE_KEY) ?? "") as Stats
 
 const createPlayerSlice: MyCreateSlice<PlayerSlice, []> = (set, get) => {
   return {
@@ -27,9 +28,14 @@ const createPlayerSlice: MyCreateSlice<PlayerSlice, []> = (set, get) => {
     },
 
     wonFight: (newFighter, stats) => {
+      const fighter = get().fighter;
+      const newBaseStats = mergeSumPartial(fighter.baseStats, stats)
+
+      localStorage.setItem(SAVE_KEY, JSON.stringify(newBaseStats));
+
       set({fighter: {
         ...newFighter,
-        baseStats: mergeSumPartial(get().fighter.baseStats, stats),
+        baseStats: newBaseStats,
         health: newFighter.health + (stats.health ?? 0),
         attackCooldown: 0,
         statusEffects: {},

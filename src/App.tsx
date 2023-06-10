@@ -1,6 +1,4 @@
-import React, { useEffect, useRef } from 'react';
-import ReactDOM from "react-dom";
-import { ReactJSXElement } from '@emotion/react/types/jsx-namespace';
+import { useEffect, useRef } from 'react';
 import ReactTooltip from 'react-tooltip';
 import { pick } from 'lodash';
 import shallow from 'zustand/shallow';

@@ -2,6 +2,7 @@ import { Champion, ChosenChampion, Fighter, MyCreateSlice, Stats, Status, Status
 import { using } from "../shared/utils";
 import { ChampionsSlice } from "./champions";
 import { PlayerSlice } from "./player";
+import { SAVE_KEY } from "../shared/constants"
 
 export interface ChampionFighter extends ChosenChampion {
   fighter: Fighter,
@@ -78,7 +79,7 @@ function updateFighter(elapsed: number, fighter: Fighter, opponent: Fighter) {
   fighter.attackCooldown = 0;
 
   let damage = fighter.baseStats.damage ?? 0;
-  if (Math.random() < (fighter.baseStats.critChance ?? 0)) {
+  if (Math.random() * 100 < (fighter.baseStats.critChance ?? 0)) {
     damage *= 2;
   }
   if (opponent.baseStats.armor) {
@@ -87,7 +88,7 @@ function updateFighter(elapsed: number, fighter: Fighter, opponent: Fighter) {
   opponent.health -= damage;
 
   if (fighter.baseStats.lifeSteal) {
-    fighter.health = Math.min(fighter.health + damage * fighter.baseStats.lifeSteal, fighter.baseStats.health ?? 0);
+    fighter.health = Math.min(fighter.health + (damage * fighter.baseStats.lifeSteal / 100), fighter.baseStats.health ?? 0);
   }
 
   using(fighter.baseStats.poison, p => {

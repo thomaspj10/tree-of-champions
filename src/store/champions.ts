@@ -1,5 +1,5 @@
 import champions from "../config/champions";
-import { Champion, ChosenChampion, Fighter, MyCreateSlice } from "../shared/types";
+import { Champion, ChosenChampion, MyCreateSlice } from "../shared/types";
 
 export interface ChampionNode {
   champion: Champion,
@@ -17,10 +17,10 @@ export interface ChampionsSlice {
 const rows = [
   ['rat', 'bat', 'spider'],
   ['skeleton', 'ghost', 'python', 'beast'],
-  ['god', 'god', 'beholder', 'shadow', 'god'],
-  ['god', 'god', 'god', 'god'],
-  ['god', 'god', 'god'],
-  ['god', 'god'],
+  ['knight', 'witch', 'beholder', 'shadow', 'flock_of_bats'],
+  ['prince', 'prince', 'prince', 'prince'],
+  ['prince_of_darkness', 'prince_of_darkness', 'prince_of_darkness'],
+  ['the_devil', 'the_devil'],
   ['god'],
 ];
 
